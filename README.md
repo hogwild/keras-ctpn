@@ -116,7 +116,7 @@ wget https://github.com/fchollet/deep-learning-models/releases/download/v0.2/res
 
 
 
-c. Modify the settings in config.py，as the following
+c. Modify the settings in config.py
 
 ```python
 	# pretrained model
