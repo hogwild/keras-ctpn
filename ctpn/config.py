@@ -15,19 +15,19 @@ class Config(object):
     NUM_CLASSES = 1 + 1  #
     CLASS_MAPPING = {'bg': 0,
                      'text': 1}
-    # 训练样本
+    # 训练样本 training set
     ANCHORS_HEIGHT = [11, 16, 23, 33, 48, 68, 97, 139, 198, 283]
     ANCHORS_WIDTH = 16
     TRAIN_ANCHORS_PER_IMAGE = 128
     ANCHOR_POSITIVE_RATIO = 0.5
-    # 步长
+    # 步长 stride
     NET_STRIDE = 16
-    # text proposal输出
+    # text proposal输出 output
     TEXT_PROPOSALS_MIN_SCORE = 0.7
     TEXT_PROPOSALS_NMS_THRESH = 0.3
     TEXT_PROPOSALS_MAX_NUM = 500
     TEXT_PROPOSALS_WIDTH = 16
-    # text line boxes超参数
+    # text line boxes超参数 hyperparameters
     LINE_MIN_SCORE = 0.7
     MAX_HORIZONTAL_GAP = 50
     TEXT_LINE_NMS_THRESH = 0.3
@@ -36,10 +36,10 @@ class Config(object):
     MIN_V_OVERLAPS = 0.7
     MIN_SIZE_SIM = 0.7
 
-    # 训练超参数
+    # 训练超参数 training the hyperparameters
     LEARNING_RATE = 0.01
     LEARNING_MOMENTUM = 0.9
-    # 权重衰减
+    # 权重衰减 weight decay
     WEIGHT_DECAY = 0.0005,
     GRADIENT_CLIP_NORM = 5.0
 
@@ -48,14 +48,14 @@ class Config(object):
         "ctpn_class_loss": 1,
         "side_regress_loss": 1
     }
-    # 是否使用侧边改善
+    # 是否使用侧边改善 switch of side refine
     USE_SIDE_REFINE = True
-    # 预训练模型
+    # 预训练模型 pretraining model
     PRE_TRAINED_WEIGHT = '/opt/pretrained_model/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5'
 
     WEIGHT_PATH = '/tmp/ctpn.h5'
 
-    # 数据集路径
+    # 数据集路径 the path of the dataset
     IMAGE_DIR = '/opt/dataset/OCR/ICDAR_2015/train_images'
     IMAGE_GT_DIR = '/opt/dataset/OCR/ICDAR_2015/train_gt'
 
