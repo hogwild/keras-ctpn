@@ -2,7 +2,7 @@
 
 [TOC]
 
-1. [说明](#说明 Introduction) 
+1. [Introduction](#说明) 
 2. [预测](#预测 Prediction)
 3. [训练](#训练 Training)
 4. [例子](#例子 Examples)<br>
