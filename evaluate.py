@@ -23,46 +23,46 @@ def generator(image_path_list, image_shape):
                                                             image_path,
                                                             image_shape[0])
         if i % 200 == 0:
-            print("开始评估第 {} 张图像".format(i))
+            print("Evaluating No. {} ".format(i))
         yield {"input_image": np.asarray([image]),
                "input_image_meta": np.asarray([image_meta])}
 
 
 def main(args):
-    # 覆盖参数
+    # 覆盖参数 rewrite the parameters
     config.USE_SIDE_REFINE = bool(args.use_side_refine)
     if args.weight_path is not None:
         config.WEIGHT_PATH = args.weight_path
     config.IMAGES_PER_GPU = 1
     config.IMAGE_SHAPE = (1024, 1024, 3)
-    # 图像路径
+    # 图像路径 path of the images
     image_path_list = file_utils.get_sub_files(args.image_dir)
 
-    # 加载模型
+    # 加载模型 load the model
     m = models.ctpn_net(config, 'test')
     m.load_weights(config.WEIGHT_PATH, by_name=True)
 
-    # 预测
+    # 预测 predicting
     start_time = datetime.datetime.now()
     gen = generator(image_path_list, config.IMAGE_SHAPE)
     text_boxes, text_scores, image_metas = m.predict_generator(generator=gen,
                                                                steps=len(image_path_list),
                                                                use_multiprocessing=True)
     end_time = datetime.datetime.now()
-    print("======完成{}张图像评估，耗时:{} 秒".format(len(image_path_list), end_time - start_time))
-    # 去除padding
+    print("====== Image No.{}:Evaluation completed，time:{} second".format(len(image_path_list), end_time - start_time))
+    # 去除padding removing the padding
     text_boxes = [np_utils.remove_pad(text_box) for text_box in text_boxes]
     text_scores = [np_utils.remove_pad(text_score)[:, 0] for text_score in text_scores]
     image_metas = image_utils.batch_parse_image_meta(image_metas)
-    # 文本行检测
+    # 文本行检测 text Dector
     detector = TextDetector(config)
     text_lines = [detector.detect(boxes, scores, config.IMAGE_SHAPE, window)
                   for boxes, scores, window in zip(text_boxes, text_scores, image_metas["window"])]
-    # 还原检测文本行边框到原始图像坐标
+    # 还原检测文本行边框到原始图像坐标 restore the text boundary to the original image
     text_lines = [image_utils.recover_detect_quad(boxes, window, scale)
                   for boxes, window, scale in zip(text_lines, image_metas["window"], image_metas["scale"])]
 
-    # 写入文档中
+    # 写入文档中 writing into a txt file
     for image_path, boxes in zip(image_path_list, text_lines):
         output_filename = os.path.splitext('res_' + os.path.basename(image_path))[0] + '.txt'
         with open(os.path.join(args.output_dir, output_filename), mode='w') as f:
