@@ -163,7 +163,7 @@ python train.py --epochs 50
 
 ![](image_examples/icdar2017/ts_img_01001.1.jpg)
 
-### Othere datasets
+### Other datasets
 ![](image_examples/bkgd_1_0_generated_0.1.jpg)
 ![](image_examples/a2.png)
 ![](image_examples/a1.png)
