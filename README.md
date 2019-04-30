@@ -7,40 +7,38 @@
 3. [Training](#Training)
 4. [Examples](#Examples)<br>
    4.1 [ICDAR2015](#ICDAR2015)<br>
-   4.1.1 [With refining the boundary](#带侧边细化)<br>
-   4.1.2 [Without refining the boundary](#不带侧边细化)<br>
-   4.1.3 [Upsidedown](#做数据增广-水平翻转)<br>
+   4.1.1 [With boundary refined](#With boundary refined)<br>
+   4.1.2 [Without boundary refined](#Without boundary refined)<br>
+   4.1.3 [Flipping horizontally](#Flipping horizontally)<br>
    4.2 [ICDAR2017](#ICDAR2017)<br>
    4.3 [Other datasets](#Other datasets)
 5. [toDoList](#toDoList)
 6. [Summary](#Summary)
 
-## 说明
+## Introduction
 
-​         本工程是keras实现的[CPTN: Detecting Text in Natural Image with Connectionist Text Proposal Network](https://arxiv.org/abs/1609.03605) . 本工程实现主要参考了[keras-faster-rcnn](https://github.com/yizt/keras-faster-rcnn) ; 并在ICDAR2015和ICDAR2017数据集上训练和测试。
+​         This project is a kera application of [CPTN: Detecting Text in Natural Image with Connectionist Text Proposal Network](https://arxiv.org/abs/1609.03605) . The code is refer to [keras-faster-rcnn](https://github.com/yizt/keras-faster-rcnn) ; and the model is trained and tested on ICDAR2015 and ICDAR2017.
 
-​         工程地址: [keras-ctpn](https://github.com/yizt/keras-ctpn)
+​         Links: [keras-ctpn](https://github.com/yizt/keras-ctpn)
 
-​         cptn论文翻译:[CTPN.md](https://github.com/yizt/cv-papers/blob/master/CTPN.md)
+​         Chinese version of the original paper:[CTPN.md](https://github.com/yizt/cv-papers/blob/master/CTPN.md)
 
-**效果**：
+**Result**：
 
-​        使用ICDAR2015的1000张图像训练在500张测试集上结果为：Recall: 37.07 % Precision: 42.94 % Hmean: 39.79 %;
-原文中的F值为61%；使用了额外的3000张图像训练。
+​        1500 images from ICDAR2015, 1000 from training and 500 for testing ：Recall: 37.07 % Precision: 42.94 % Hmean: 39.79 %;
 
-**关键点说明**:
+**Key points**:
 
-a.骨干网络使用的是resnet50
+a.Using resnet50
 
-b.训练输入图像大小为720*720; 将图像的长边缩放到720,保持长宽比,短边padding;原文是短边600;预测时使用1024*1024
+b.Input image size is 720*720; (extending the heigh to 720,keeping the heigh/width ratio unchanged, padding the width if it is less than 720;this is different to the original paper which sets the width as 600; using the size 1024*1024 when doing the prediction
 
-c.batch_size为4, 每张图像训练128个anchor,正负样本比为1:1;
+c.batch_size is 4, there are 128 anchors for each image, the ratio of the number of positive samples and negative samples is 1:1;
 
-d.分类、边框回归以及侧边细化的损失函数权重为1:1:1;原论文中是1:1:2
+d. The weights in the loss function for classification, boundary box regression and boundary refining are set as 1:1:1; while in the original paper they are set as 1:1:2
 
-e.侧边细化与边框回归选择一样的正样本anchor;原文中应该是分开选择的
-
-f.侧边细化还是有效果的(注:网上很多人说没有啥效果)
+e.The boundary refining and boundary box regression use same positve anchors, which is different to the setting in original paper.
+f.The boundary refining contributes to the performance, which is contract to some researchers views.
 
 g.由于有双向GRU，水平翻转会影响效果(见样例[做数据增广-水平翻转](#做数据增广-水平翻转))
 
@@ -49,9 +47,9 @@ h.随机裁剪做数据增广，网络不收敛
 
 
 
-## 预测
+## Predicting
 
-a. 工程下载
+a. Code can be downloat from the following link:
 
 ```bash
 git clone https://github.com/yizt/keras-ctpn
@@ -59,35 +57,35 @@ git clone https://github.com/yizt/keras-ctpn
 
 
 
-b. 预训练模型下载
+b. Pretrained model can be download from the following link
 
-​    ICDAR2015训练集上训练好的模型下载地址：[ctpn.h5](https://pan.baidu.com/s/1XeQN0H1_FdTPBwH1GDlW_w) 提取码：k7yu ; [google drive](https://drive.google.com/file/d/1n1OeN99BP4NdFOXA1CaYom7O3S985Nd6/view?usp=sharing)
+​    Model for ICDAR2015 ：[ctpn.h5](https://pan.baidu.com/s/1XeQN0H1_FdTPBwH1GDlW_w) security code：k7yu ; [google drive](https://drive.google.com/file/d/1n1OeN99BP4NdFOXA1CaYom7O3S985Nd6/view?usp=sharing)
 
-c.修改配置类config.py中如下属性
+c.Change the following setting in config.py
 
 ```python
 	WEIGHT_PATH = '/tmp/ctpn.h5'
 ```
 
-d. 检测文本
+d. Text detection
 
 ```shell
 python predict.py --image_path image_3.jpg
 ```
 
-## 评估
+## Evaluation
 
-a. 执行如下命令,并将输出的txt压缩为zip包
+a. run the following statement, then compress the output (i.e., the ".txt" file) in to a zip file
 ```shell
 python evaluate.py --weight_path /tmp/ctpn.140.h5 --image_dir /opt/dataset/OCR/ICDAR_2015/test_images/ --output_dir /tmp/output_2015/
 ```
 
-b. 提交在线评估
-   将压缩的zip包提交评估，评估地址:http://rrc.cvc.uab.es/?ch=4&com=mymethods&task=1
+b. Submit for online evaluation
+   submit the zip file to :http://rrc.cvc.uab.es/?ch=4&com=mymethods&task=1
 
-## 训练
+## Training
 
-a. 训练数据下载
+a. Dataset
 ```shell
 #icdar2013
 wget http://rrc.cvc.uab.es/downloads/Challenge2_Training_Task12_Images.zip
@@ -111,26 +109,25 @@ wget -c -t 0 http://datasets.cvc.uab.es/rrc/ch8_test_images.zip
 
 
 
-b. resnet50与训练模型下载
-
+b. resnet50 and the trained model
 ```shell
 wget https://github.com/fchollet/deep-learning-models/releases/download/v0.2/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5
 ```
 
 
 
-c. 修改配置类config.py中，如下属性
+c. Modify the settings in config.py，as the following
 
 ```python
-	# 预训练模型
+	# pretrained model
     PRE_TRAINED_WEIGHT = '/opt/pretrained_model/resnet50_weights_tf_dim_ordering_tf_kernels_notop.h5'
 
-    # 数据集路径
+    # the path of the dataset
     IMAGE_DIR = '/opt/dataset/OCR/ICDAR_2015/train_images'
     IMAGE_GT_DIR = '/opt/dataset/OCR/ICDAR_2015/train_gt'
 ```
 
-d.训练
+d.training
 
 ```shell
 python train.py --epochs 50
@@ -140,22 +137,22 @@ python train.py --epochs 50
 
 
 
-## 例子
+## Examples
 
 ### ICDAR2015
 
-#### 带侧边细化
+#### With boundary refined
 
 ![](image_examples/icdar2015/img_8.1.jpg)
 
 ![](image_examples/icdar2015/img_200.1.jpg)
 
-#### 不带侧边细化
+#### Without boundary refined
 ![](image_examples/icdar2015/img_8.0.jpg)
 
 ![](image_examples/icdar2015/img_200.0.jpg)
 
-#### 做数据增广-水平翻转
+#### Flipping horizontally
 ![](image_examples/flip1.png)
 ![](image_examples/flip2.png)
 
@@ -187,6 +184,6 @@ python train.py --epochs 50
 
 ### Summary
 
-1. ctpn对水平文字检测效果不错
-2. 整个网络对于数据集很敏感;在2017上训练的模型到2015上测试效果很不好；同样2015训练的在2013上测试效果也很差
+1. ctpn is good at detecting the words in horizontal 
+2. The network is senstive to the dataset; Model training on ICDAR2017 has poor performance on ICDAR2015 
 3. 推测由于双向GRU，网络有存储记忆的缘故？在使用随机裁剪作数据增广时网络不收敛，使用水平翻转时预测结果也水平对称出现
