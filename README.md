@@ -31,7 +31,7 @@
 
 a.Using resnet50
 
-b.Input image size is 720*720; (extending the heigh to 720,keeping the heigh/width ratio unchanged, padding the width if it is less than 720;this is different to the original paper which sets the width as 600; using the size 1024*1024 when doing the prediction
+b.Input image size is 720 x 720; (extending the heigh to 720,keeping the heigh/width ratio unchanged, padding the width if it is less than 720;this is different to the original paper which sets the width as 600; using the size 1024 x 1024 when doing the prediction
 
 c.batch_size is 4, there are 128 anchors for each image, the ratio of the number of positive samples and negative samples is 1:1;
 
