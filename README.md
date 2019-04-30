@@ -7,8 +7,8 @@
 3. [Training](#Training)
 4. [Examples](#Examples)<br>
    4.1 [ICDAR2015](#ICDAR2015)<br>
-   4.1.1 [With boundary refined](#With boundary refined)<br>
-   4.1.2 [Without boundary refined](#Without boundary refined)<br>
+   4.1.1 [With boundary refined](#With boundary being refined)<br>
+   4.1.2 [Without boundary refined](#Without boundary being refined)<br>
    4.1.3 [Flipping horizontally](#Flipping horizontally)<br>
    4.2 [ICDAR2017](#ICDAR2017)<br>
    4.3 [Other datasets](#Other datasets)
@@ -141,13 +141,13 @@ python train.py --epochs 50
 
 ### ICDAR2015
 
-#### With boundary refined
+#### With boundary being refined
 
 ![](image_examples/icdar2015/img_8.1.jpg)
 
 ![](image_examples/icdar2015/img_200.1.jpg)
 
-#### Without boundary refined
+#### Without boundary being refined
 ![](image_examples/icdar2015/img_8.0.jpg)
 
 ![](image_examples/icdar2015/img_200.0.jpg)
