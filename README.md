@@ -2,18 +2,18 @@
 
 [TOC]
 
-1. [Introduction](#说明) 
-2. [预测](#预测 Prediction)
-3. [训练](#训练 Training)
-4. [例子](#例子 Examples)<br>
+1. [Introduction](#Introduction) 
+2. [Predicting](#Predicting)
+3. [Training](#Training)
+4. [Examples](#Examples)<br>
    4.1 [ICDAR2015](#ICDAR2015)<br>
-   4.1.1 [带侧边细化](#带侧边细化)<br>
-   4.1.2 [不带带侧边细化](#不带侧边细化)<br>
-   4.1.3 [做数据增广-水平翻转](#做数据增广-水平翻转)<br>
+   4.1.1 [With refining the boundary](#带侧边细化)<br>
+   4.1.2 [Without refining the boundary](#不带侧边细化)<br>
+   4.1.3 [Upsidedown](#做数据增广-水平翻转)<br>
    4.2 [ICDAR2017](#ICDAR2017)<br>
-   4.3 [其它数据集](#其它数据集 other datasets)
+   4.3 [Other datasets](#Other datasets)
 5. [toDoList](#toDoList)
-6. [总结](#总结)
+6. [Summary](#Summary)
 
 ## 说明
 
@@ -166,7 +166,7 @@ python train.py --epochs 50
 
 ![](image_examples/icdar2017/ts_img_01001.1.jpg)
 
-### 其它数据集
+### Othere datasets
 ![](image_examples/bkgd_1_0_generated_0.1.jpg)
 ![](image_examples/a2.png)
 ![](image_examples/a1.png)
@@ -185,7 +185,7 @@ python train.py --epochs 50
 
 
 
-### 总结
+### Summary
 
 1. ctpn对水平文字检测效果不错
 2. 整个网络对于数据集很敏感;在2017上训练的模型到2015上测试效果很不好；同样2015训练的在2013上测试效果也很差
