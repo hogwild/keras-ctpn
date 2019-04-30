@@ -141,18 +141,18 @@ python train.py --epochs 50
 
 ### ICDAR2015
 
-#### With boundary being refined
+#### With_boundary_being_refined
 
 ![](image_examples/icdar2015/img_8.1.jpg)
 
 ![](image_examples/icdar2015/img_200.1.jpg)
 
-#### Without boundary being refined
+#### Without_boundary_being_refined
 ![](image_examples/icdar2015/img_8.0.jpg)
 
 ![](image_examples/icdar2015/img_200.0.jpg)
 
-#### Flipping horizontally
+#### Flipping_horizontally
 ![](image_examples/flip1.png)
 ![](image_examples/flip2.png)
 
@@ -163,7 +163,7 @@ python train.py --epochs 50
 
 ![](image_examples/icdar2017/ts_img_01001.1.jpg)
 
-### Other datasets
+### Other_datasets
 ![](image_examples/bkgd_1_0_generated_0.1.jpg)
 ![](image_examples/a2.png)
 ![](image_examples/a1.png)
