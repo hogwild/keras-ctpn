@@ -7,11 +7,11 @@
 3. [Training](#Training)
 4. [Examples](#Examples)<br>
    4.1 [ICDAR2015](#ICDAR2015)<br>
-   4.1.1 [With boundary refined](#With boundary being refined)<br>
-   4.1.2 [Without boundary refined](#Without boundary being refined)<br>
-   4.1.3 [Flipping horizontally](#Flipping horizontally)<br>
+   4.1.1 [With boundary refined](#With_boundary_being_refined)<br>
+   4.1.2 [Without boundary refined](#Without_boundary_being_refined)<br>
+   4.1.3 [Flipping horizontally](#Flipping_horizontally)<br>
    4.2 [ICDAR2017](#ICDAR2017)<br>
-   4.3 [Other datasets](#Other datasets)
+   4.3 [Other datasets](#Other_datasets)
 5. [toDoList](#toDoList)
 6. [Summary](#Summary)
 
