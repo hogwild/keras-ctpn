@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
    File Name：     anchor
-   Description :  ctpn anchor层，在输入图像边框外的anchors丢弃
+   Description :  ctpn anchor层，在输入图像边框外的anchors丢弃, the ctpn anchor layer, abandon those anchors outside of the image boundary
    Author :       mick.yi
    date：          2019/3/13
 """
@@ -75,7 +75,7 @@ def filter_out_of_bound_boxes(boxes, feature_shape, stride):
 class CtpnAnchor(keras.layers.Layer):
     def __init__(self, heights, width, stride, **kwargs):
         """
-        :param heights: 高度列表
+        :param heights: 高度列表 a list of heights
         :param width: 宽度，数值，如：16
         :param stride: 步长,
         :param image_shape: tuple(H,W,C)
